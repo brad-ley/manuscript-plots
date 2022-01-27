@@ -5,7 +5,7 @@
 1. Type `conda install pip` and press enter
 1. Download [this repo](https://github.com/brad-ley/manuscript-plots) by pressing green code button and then 'download zip'
 1. Unzip that file in your downloads
-1. Right-click the folder, hold option, and select 'Copy as Pathname'
+1. Right-click the folder, hold option key, and select 'Copy as Pathname'
 1. Go back to terminal and type "cd" and then quotation mark, press Ctrl-V, then close the quotation -- that should move you to the folder you just downloaded in your terminal
 1. Check that this worked by typing `ls` -- that should display the files that are in that folder
 1. Now type `conda install pip` -- this should install pip which is a package manager
