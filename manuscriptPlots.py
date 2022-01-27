@@ -14,7 +14,6 @@ holding option and selecting 'Copy as Pathname'
 selecting 'Copy as path'
 this code will assume your data is a .txt, .dat, or .csv file with the x-axis in the first column and all y-axis data in columns 2, 3, etc.
 """
-FILENAME = 'C:/full/path/to/file/goes/here.dat' 
 FILENAME = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/25/sample 1 (unenriched)/absorption_LightOn_sample2022125107_exp.txt' 
 """
 setting axis labels, etc
@@ -36,15 +35,19 @@ savename_ext = 'sample save name' # how to name file that will be saved
 
 def main(f):
     fig, ax = plt.subplots()
+    if P(f).suffix == '.csv'
+        data = np.loadtxt(f, skiprows=1, delimiter=',')
+    elif P(f).suffix = '.asc':
+        data = np.loadtxt(f, skiprows=4, delimiter='\t')
+    else:
+        data = np.loadtxt(f)
+
     try:
-        data = np.loadtxt(f, skiprows=0)
-    except:
-        try:
-            data = np.loadtxt(f, delimiter=', ', skiprows=0)
-        except:
-            data = np.loadtxt(f, delimiter='\t', skiprows=0)
-    for i, n in enumerate(legend_names):
-        plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=1.5)
+        for i, n in enumerate(legend_names):
+            plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=1.5)
+    except IndexError:
+        print('Too many entries in legend_names, colors, or styles!')
+
     plt.xlabel(x_Label)
     plt.ylabel(y_Label)
     if not x_ticks:
