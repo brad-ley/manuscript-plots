@@ -6,7 +6,7 @@
 1. Download [this repo](https://github.com/brad-ley/manuscript-plots) by pressing green code button and then 'download zip'
 1. Unzip that file in your downloads
 1. Right-click the folder, hold option key, and select 'Copy as Pathname'
-1. Go back to terminal and type "cd" and then quotation mark, press Ctrl-V, then close the quotation -- that should move you to the folder you just downloaded in your terminal
+1. Go back to terminal and type `cd` and then quotation mark, press cmd-v, then close the quotation -- that should move you to the folder you just downloaded in your terminal (command looks like `cd "/path/to/folder/"`)
 1. Check that this worked by typing `ls` and press enter -- that should display the files that are in that folder
 1. `conda install pip` -- this should install pip which is a package manager
 1. `pip install -r requirements.txt` -- this should install all packages you need in order to make nice plots
