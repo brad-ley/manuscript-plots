@@ -20,12 +20,17 @@ setting axis labels, etc
 """
 # legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
 legend_names = ['absorption'] # add as many legend names as you want to be plotted on same x axis
+# colors = ['red','black'] # as many color names as legend names
+colors = ['red']
+# styles = [':', "--"] # same number here
+styles = [':']
 x_Label = 'sample x label' # x axis label
 y_Label = 'sample y label' # y axis label
 x_tickLabels = True # set to false to remove x axis tick labels
 x_ticks = True # make False to get rid of x axis tick labels (good for arbitrary unit data)
 y_tickLabels = True # set to false to remove y axis tick labels
 y_ticks = True # make False to get rid of y axis tick labels (good for arbitrary unit data)
+legend = False # make False if you don't want a legend to show up
 savename = 'sample save name' # how to name file that will be saved
 
 def main(f):
@@ -38,7 +43,7 @@ def main(f):
         except:
             data = np.loadtxt(f, delimiter='\t')
     for i, n in enumerate(legend_names):
-        plt.plot(data[:, 0], data[:, 1 + i], label=n)
+        plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=2)
     plt.xlabel(x_Label)
     plt.ylabel(y_Label)
     if not x_ticks:
@@ -50,7 +55,8 @@ def main(f):
     if not y_tickLabels:
         ax.set_yticklabels([])
 
-    plt.legend()
+    if legend:
+        plt.legend()
     plt.savefig(P(f).parent.joinpath(f"{savename}.tif"),dpi=300)
 
 
