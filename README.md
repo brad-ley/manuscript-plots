@@ -1,16 +1,16 @@
--Install python using (Anaconda package)[https://www.anaconda.com/products/individual]
--That should automatically provide an updated version of python, numpy, matplotlib, etc. that you will need for plotting
--Open 'Terminal' application on mac
--Type `which conda` and make sure that something comes up (if it doesn't get help!)
--Type `conda install pip`
--Download (this repo)[https://github.com/brad-ley/manuscript-plots] by pressing green code button and then 'download zip'
--Unzip that file in your downloads
--Right-click the folder, hold option, and select 'Copy as Pathname'
--Go back to terminal and type "cd" and then quotation mark, press Ctrl-V, then close the quotation -- that should move you to the folder you just downloaded in your terminal
--Check that this worked by typing `ls` -- that should display the files that are in that folder
--Now type `conda install pip` -- this should install pip which is a package manager
--Type `pip install -r requirements.txt` -- this should install all packages you need in order to make nice plots
--Now you can edit the .py file however you see fit -- follow the instructions within the file
--After editing the file, type `python3 manuscriptPlots.py` in your terminal window and it will run the code you edited
--Voila, you have a plot! And the .tif file of the plot should now be saved in whatever folder you got the datafile from
--Ask me if you have any issues/questions
+- Install python using (Anaconda package)[https://www.anaconda.com/products/individual]
+- That should automatically provide an updated version of python, numpy, matplotlib, etc. that you will need for plotting
+- Open 'Terminal' application on mac
+- Type `which conda` and make sure that something comes up (if it doesn't get help!)
+- Type `conda install pip`
+- Download (this repo)[https://github.com/brad-ley/manuscript-plots] by pressing green code button and then 'download zip'
+- Unzip that file in your downloads
+- Right-click the folder, hold option, and select 'Copy as Pathname'
+- Go back to terminal and type "cd" and then quotation mark, press Ctrl-V, then close the quotation -- that should move you to the folder you just downloaded in your terminal
+- Check that this worked by typing `ls` -- that should display the files that are in that folder
+- Now type `conda install pip` -- this should install pip which is a package manager
+- Type `pip install -r requirements.txt` -- this should install all packages you need in order to make nice plots
+- Now you can edit the .py file however you see fit -- follow the instructions within the file
+- After editing the file, type `python3 manuscriptPlots.py` in your terminal window and it will run the code you edited
+- Voila, you have a plot! And the .tif file of the plot should now be saved in whatever folder you got the datafile from
+- Ask me if you have any issues/questions
