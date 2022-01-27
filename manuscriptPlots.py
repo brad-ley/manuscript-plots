@@ -40,7 +40,7 @@ def main(f):
         except:
             data = np.loadtxt(f, delimiter='\t')
     for i, n in enumerate(legend_names):
-        plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=2)
+        plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=1.5)
     plt.xlabel(x_Label)
     plt.ylabel(y_Label)
     if not x_ticks:
