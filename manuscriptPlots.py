@@ -12,6 +12,7 @@ filename need to be full path to file:
 holding option and selecting 'Copy as Pathname'
 -- on Windows you can get this by holding shift before rightclicking and then
 selecting 'Copy as path'
+this code will assume your data is a .txt, .dat, or .csv file with the x-axis in the first column and all y-axis data in columns 2, 3, etc.
 """
 FILENAME = 'C:/full/path/to/file/goes/here.dat' 
 FILENAME = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/25/sample 1 (unenriched)/absorption_LightOn_sample2022125107_exp.txt' 
