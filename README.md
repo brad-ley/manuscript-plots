@@ -1,9 +1,9 @@
-1. Install python using (Anaconda package)[https://www.anaconda.com/products/individual]
+1. Install python using [Anaconda package](https://www.anaconda.com/products/individual)
 1. That should automatically provide an updated version of python, numpy, matplotlib, etc. that you will need for plotting
 1. Open 'Terminal' application on mac
 1. Type `which conda` and make sure that something comes up (if it doesn't get help!)
 1. Type `conda install pip`
-1. Download (this repo)[https://github.com/brad-ley/manuscript-plots] by pressing green code button and then 'download zip'
+1. Download [this repo](https://github.com/brad-ley/manuscript-plots) by pressing green code button and then 'download zip'
 1. Unzip that file in your downloads
 1. Right-click the folder, hold option, and select 'Copy as Pathname'
 1. Go back to terminal and type "cd" and then quotation mark, press Ctrl-V, then close the quotation -- that should move you to the folder you just downloaded in your terminal
