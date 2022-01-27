@@ -18,19 +18,16 @@ FILENAME = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/25/sample 1 (unen
 """
 setting axis labels, etc
 """
-# legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
-legend_names = ['absorption'] # add as many legend names as you want to be plotted on same x axis
-# colors = ['red','black'] # as many color names as legend names
-colors = ['red']
-# styles = [':', "--"] # same number here
-styles = [':']
+legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
+colors = ['red','black'] # as many color names as legend names
+styles = [':', "--"] # same number here
 x_Label = 'sample x label' # x axis label
 y_Label = 'sample y label' # y axis label
 x_tickLabels = True # set to false to remove x axis tick labels
 x_ticks = True # make False to get rid of x axis tick labels (good for arbitrary unit data)
 y_tickLabels = True # set to false to remove y axis tick labels
 y_ticks = True # make False to get rid of y axis tick labels (good for arbitrary unit data)
-legend = False # make False if you don't want a legend to show up
+legend = True # make False if you don't want a legend to show up
 savename = 'sample save name' # how to name file that will be saved
 
 def main(f):
