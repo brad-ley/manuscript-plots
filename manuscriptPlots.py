@@ -46,7 +46,7 @@ def main(f):
     lw = 1.25
     try:
         for i, n in enumerate(legend_names):
-            plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=lw.5)
+            plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=lw)
     except IndexError:
         print('Too many entries in legend_names, colors, or styles!')
 

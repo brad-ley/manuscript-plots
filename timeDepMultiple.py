@@ -24,10 +24,10 @@ turn_off = 5 # you can ignore this unless you are averaging -- make at least as 
 total_experiment_time = 180
 colors = [['black', 'red'], ['slategray', 'orange']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 styles = [['-', '--'], ['-', '-.']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
-delimiter = ','
-skiprows = 0
 savename = 'compared'
 source = 'Light' # use 'Light' in Shiny's lab and 'Laser' in Brad's
+delimiter = ','
+skiprows = 0
 """
 CHANGE STUFF ABOVE
 """
@@ -64,16 +64,17 @@ def show(folder):
         if sd2 == np.inf:
             sd2 = 0
         ex = exp(plott[plott > turn_off],*popt) 
+        lw = 1.25
         try:
             ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/popt[0], label=f.stem.replace("_"," "),
-                    lw=1.25, color=colors[i][0], linestyle=styles[i][0])
+                    lw=lw, color=colors[i][0], linestyle=styles[i][0])
             ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/popt[0] ,
-                    label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=1.25, color=colors[i][1], linestyle=styles[i][1])
+                    label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=lw, color=colors[i][1], linestyle=styles[i][1])
         except IndexError:
             ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/popt[0], label=f.stem.replace("_"," "),
-                    lw=1.25)
+                    lw=lw)
             ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/popt[0],
-                    label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=1.25)
+                    label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=lw)
 
     plt.axvspan(turn_on, turn_off, color='#00A7CA', label=f"{source} on")
 
@@ -82,7 +83,7 @@ def show(folder):
     # handles.insert(0, handles.pop())
     # plt.legend(handles, labels)
     plt.legend()
-    ax.set_ylabel('Signal (arb. u)')
+    ax.set_ylabel('Intensity (arb. u)')
     ax.set_xlabel('Time (s)')
     plt.savefig(P(folder).joinpath(f'{savename}.tif'),dpi=300)
     plt.savefig(P(folder).joinpath(f'{savename}.png'),dpi=300)
