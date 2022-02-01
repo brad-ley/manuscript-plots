@@ -78,8 +78,8 @@ def main(folder):
     if legend:
         plt.legend()
 
-    plt.savefig(P(f).joinpath(FOLDER + f"{savename}.tif"),dpi=300)
-    plt.savefig(P(f).joinpath(FOLDER + f"{savename}.png"),dpi=300)
+    plt.savefig(P(FOLDER).joinpath(f"{savename}.tif"),dpi=300)
+    plt.savefig(P(FOLDER).joinpath(f"{savename}.png"),dpi=300)
 
 
 if __name__ == "__main__":
