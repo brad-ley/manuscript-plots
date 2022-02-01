@@ -14,10 +14,10 @@ holding option and selecting 'Copy as Pathname'
 selecting 'Copy as path'
 this code will assume your data is a .txt, .dat, or .csv file with the x-axis in the first column and all y-axis data in columns 2, 3, etc.
 """
-FILENAME = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/25/sample 1 (unenriched)/absorption_LightOn_sample2022125107_exp.txt' 
 """
 CHANGE STUFF BELOW
 """
+FILENAME = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/25/sample 1 (unenriched)/absorption_LightOn_sample2022125107_exp.txt' 
 # legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
 legend_names = ['line 1'] # add as many legend names as you want to be plotted on same x axis
 # colors = ['red','black'] # as many color names as legend names
@@ -65,6 +65,7 @@ def main(f):
         plt.legend()
 
     plt.savefig(P(f).parent.joinpath(P(f).stem + f"_{savename_ext}.tif"),dpi=300)
+    plt.savefig(P(f).parent.joinpath(P(f).stem + f"_{savename_ext}.png"),dpi=300)
 
 
 if __name__ == "__main__":

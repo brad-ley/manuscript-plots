@@ -22,6 +22,7 @@ colors = [['black', 'red'], ['gray', 'blue']] # make one entry for each line and
 styles = [['-', '--'], ['-', ':']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 delimiter = ', '
 skiprows = 0
+savename_ext = 'compared'
 """
 CHANGE STUFF ABOVE
 """
@@ -53,8 +54,8 @@ def show(folder):
     ax.set_ylabel('Signal (arb. u)')
     ax.set_xlabel('Time (s)')
     plt.legend()
-    plt.savefig(P(folder).joinpath('compared.tif'),dpi=300)
-    plt.savefig(P(folder).joinpath('compared.png'),dpi=300)
+    plt.savefig(P(folder).joinpath(f'_{savename_ext}.tif'),dpi=300)
+    plt.savefig(P(folder).joinpath(f'_{savename_ext}.png'),dpi=300)
 
 
 if __name__ == "__main__":
