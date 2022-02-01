@@ -4,7 +4,7 @@
 1. Type `which conda` and press return -- make sure that something comes up (if it doesn't, get help!)
 1. Type `conda install pip` and press return
 1. Download [this repo](https://github.com/brad-ley/manuscript-plots) by pressing green code button and then 'download zip'
-1. Unzip that file in your downloads
+1. Unzip the folder in your downloads
 1. Right-click the folder, hold option key, and select 'Copy as Pathname'
 1. Go back to terminal and type `cd` and then quotation mark, press cmd-v, then close the quotation and press return -- that should move you to the folder you just downloaded in your terminal (command looks like `cd "/path/to/folder/"`)
 1. Check that this worked by typing `ls` and press return -- that should display the files that are in that folder
