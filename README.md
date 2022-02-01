@@ -11,6 +11,6 @@
 1. `conda install pip` -- this should install pip which is a package manager
 1. `pip install -r requirements.txt` -- this should install all packages you need in order to make nice plots
 1. Now you can edit the .py file however you see fit -- follow the instructions within the file
-1. After editing the file, `python3 manuscriptPlots.py` in your terminal window and it will run the code you edited
-1. Voila, you have a plot! And the .tif file of the plot should now be saved in whatever folder you got the datafile from
+1. After editing the file, `python3 manuscriptPlots.py` or `python3 timeDepMultiple.py` in your terminal window and it will run the code you edited
+1. Voila, you have a plot! And the .tif/.png file of the plot should now be saved in whatever folder you got the datafile from
 1. Ask me if you have any issues/questions
