@@ -7,7 +7,7 @@ import numpy as np
 plt.style.use('science')
 
 """
-filename need to be full path to file:
+filename need to be full path to folder:
 -- on Mac you can get this by right-clicking and then
 holding option and selecting 'Copy as Pathname'
 -- on Windows you can get this by holding shift before rightclicking and then
@@ -17,7 +17,7 @@ this code will assume your data is a .txt, .dat, or .csv file with the x-axis in
 """
 CHANGE STUFF BELOW
 """
-FILENAME = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/25/sample 1 (unenriched)/absorption_LightOn_sample2022125107_exp.txt' 
+FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare light on off' 
 # legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
 legend_names = ['line 1'] # add as many legend names as you want to be plotted on same x axis
 # colors = ['red','black'] # as many color names as legend names
@@ -32,42 +32,56 @@ x_ticks = True # make False to get rid of x axis tick labels (good for arbitrary
 y_tickLabels = True # set to false to remove y axis tick labels
 y_ticks = True # make False to get rid of y axis tick labels (good for arbitrary unit data)
 legend = True # make False if you don't want a legend to show up
-savename_ext = 'sample save name' # how to name file that will be saved
+savename = 'sample save name' # how to name file that will be saved
 skiprows = 0
 delimiter = ','
 """
 CHANGE STUFF ABOVE
 """
 
-def main(f):
+def main(folder):
     fig, ax = plt.subplots()
-    data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
-    
     lw = 1.25
-    try:
-        for i, n in enumerate(legend_names):
-            plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=lw)
-    except IndexError:
-        print('Too many entries in legend_names, colors, or styles!')
+
+    if P(folder).is_file():
+        folder = P(folder).parent
+    data_suffixes = ['.txt', '.dat', '.asc', '.csv']
+    files = [ii for ii in P(folder).iterdir() if ii.suffix in data_suffixes]
+    idx = 0
+
+    for j, f in enumerate(files):
+        data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
+        cols = np.shape(data)[1]
+
+        for i in range(1, cols):
+            try:
+                plt.plot(data[:, 0], data[:, i], label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
+            except IndexError:
+                plt.plot(data[:, 0], data[:, i], lw=lw, label='no label')
+            idx += 1
 
     plt.xlabel(x_Label)
     plt.ylabel(y_Label)
+
     if not x_ticks:
         ax.set_xticks([])
+
     if not x_tickLabels:
         ax.set_xticklabels([])
+
     if not y_ticks:
         ax.set_yticks([])
+
     if not y_tickLabels:
         ax.set_yticklabels([])
 
     if legend:
         plt.legend()
 
-    plt.savefig(P(f).parent.joinpath(P(f).stem + f"_{savename_ext}.tif"),dpi=300)
-    plt.savefig(P(f).parent.joinpath(P(f).stem + f"_{savename_ext}.png"),dpi=300)
+    plt.savefig(P(f).joinpath(FOLDER + f"{savename}.tif"),dpi=300)
+    plt.savefig(P(f).joinpath(FOLDER + f"{savename}.png"),dpi=300)
 
 
 if __name__ == "__main__":
-    main(FILENAME)
+    main(FOLDER)
     plt.show()

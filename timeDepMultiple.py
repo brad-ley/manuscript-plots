@@ -16,7 +16,7 @@ from readDataFile import read
 plt.style.use(['science'])
 
 """
-CHANGE STUFF BELOW
+CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
 FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double'
 turn_on = 0
