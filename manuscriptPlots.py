@@ -16,13 +16,14 @@ this code will assume your data is a .txt, .dat, or .csv file with the x-axis in
 """
 FILENAME = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/25/sample 1 (unenriched)/absorption_LightOn_sample2022125107_exp.txt' 
 """
-setting axis labels, etc
+CHANGE STUFF BELOW
 """
 # legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
 legend_names = ['line 1'] # add as many legend names as you want to be plotted on same x axis
 # colors = ['red','black'] # as many color names as legend names
 colors = ['red'] # as many color names as legend names
 # styles = [':', "--"] # same number here
+# for light on I use color '#00A7CA' and style '--'
 styles = [':'] # same number here
 x_Label = 'sample x label' # x axis label
 y_Label = 'sample y label' # y axis label
@@ -32,19 +33,20 @@ y_tickLabels = True # set to false to remove y axis tick labels
 y_ticks = True # make False to get rid of y axis tick labels (good for arbitrary unit data)
 legend = True # make False if you don't want a legend to show up
 savename_ext = 'sample save name' # how to name file that will be saved
+skiprows = 0
+delimiter = ','
+"""
+CHANGE STUFF ABOVE
+"""
 
 def main(f):
     fig, ax = plt.subplots()
-    if P(f).suffix == '.csv'
-        data = np.loadtxt(f, skiprows=1, delimiter=',')
-    elif P(f).suffix = '.asc':
-        data = np.loadtxt(f, skiprows=4, delimiter='\t')
-    else:
-        data = np.loadtxt(f)
-
+    data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
+    
+    lw = 1.25
     try:
         for i, n in enumerate(legend_names):
-            plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=1.5)
+            plt.plot(data[:, 0], data[:, 1 + i], label=n, color=colors[i], linestyle=styles[i], lw=lw.5)
     except IndexError:
         print('Too many entries in legend_names, colors, or styles!')
 
