@@ -3,7 +3,11 @@ from pathlib import PurePath as PP
 
 import PIL
 import matplotlib.pyplot as plt
+from matplotlib import rc
 import numpy as np
+
+rc('text.latex', preamble=r'\usepackage{cmbright}')
+plt.rcParams['font.family'] = 'sans-serif'
 plt.style.use('science')
 
 """

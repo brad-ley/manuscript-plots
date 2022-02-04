@@ -6,6 +6,7 @@ from pathlib import Path as P
 from pathlib import PurePath as PP
 
 import matplotlib.pyplot as plt
+from matplotlib import rc
 import numpy as np
 import PIL
 
@@ -13,6 +14,8 @@ from scipy.optimize import curve_fit
 from scipy.interpolate import interp1d
 
 plt.style.use(['science'])
+rc('text.latex', preamble=r'\usepackage{cmbright}')
+plt.rcParams['font.family'] = 'sans-serif'
 
 """
 CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
