@@ -17,16 +17,16 @@ plt.style.use(['science'])
 """
 CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
-FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double'
-turn_on = 0
-turn_off = 5 # you can ignore this unless you are averaging -- make at least as long as the experiment if not averaging
-total_experiment_time = 180
+FOLDER = '/Users/Brad/Downloads/transient 537 406_3470 G.asc'
+turn_on = 35
+turn_off = 75
+total_experiment_time = 800 # only needs to be specific for averaging
 colors = [['black', 'red'], ['slategray', 'orange']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 styles = [['-', '--'], ['-', '-.']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 savename = 'compared'
 source = 'Light' # use 'Light' in Shiny's lab and 'Laser' in Brad's
-delimiter = ','
-skiprows = 0
+delimiter = '\t'
+skiprows = 4
 """
 CHANGE STUFF ABOVE
 """
@@ -46,10 +46,17 @@ def show(folder):
     smoothlen = 2000
     for i, f in enumerate(files):
         data = np.loadtxt(f, delimiter=delimiter, skiprows=skiprows)
-        data = data[numpy.logical_not(numpy.isnan(data[:, 1]))]
+        data = data[np.logical_not(np.isnan(data[:, 1]))]
         expts = np.empty((smoothlen, int(np.round(data[-1, 0] / total_experiment_time))))
         loops = 0
-        while loops < data[-1, 0] // total_experiment_time:
+        """
+        MIGHT NEED TO CHANGE
+        """
+        p0 = [0, -60, 80]
+        """
+        MIGHT NEED TO CHANGE
+        """
+        while loops < int(np.round(data[-1, 0] / total_experiment_time)):
             loopdat = data[np.logical_and(data[:,0] > loops * total_experiment_time, data[:, 0] < (loops + 1) * total_experiment_time)]
             fx = interp1d(loopdat[:, 0], loopdat[:, 1]) 
             smootht = np.linspace(loopdat[0,0],loopdat[-1,0],smoothlen)
@@ -58,7 +65,7 @@ def show(folder):
             expts[:,loops] = fx(smootht)
             loops += 1
         dat = np.mean(expts, axis=1)
-        popt, pcov = curve_fit(exp, plott[plott > turn_off], dat[plott > turn_off], maxfev=100000000)
+        popt, pcov = curve_fit(exp, plott[plott > turn_off], dat[plott > turn_off], maxfev=100000000, p0=p0)
         perr = np.sqrt(np.diag(pcov))
         sd2 = 2*perr[2]
         if sd2 == np.inf:
