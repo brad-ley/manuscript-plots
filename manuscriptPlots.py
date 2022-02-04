@@ -56,14 +56,18 @@ def main(folder):
         data = data[np.logical_and(data[:, 0] >= lower_limit, data[:, 0] < upper_limit)]
         cols = np.shape(data)[1]
 
+
+        try:
+            print(f"Plot number {j + 1} is {f.stem}, label={legend_names[idx]}, color={colors[idx]}, style={styles[idx]}")
+        except:
+            print(f"Plot number {j + 1} is {f.stem}, styles may be undefined")
+
         for i in range(1, cols):
             try:
                 plt.plot(data[:, 0], data[:, i], label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
             except IndexError:
                 plt.plot(data[:, 0], data[:, i], lw=lw, label='no label')
             idx += 1
-
-        print(f"Plot number {j + 1} is {f.stem}")
 
     plt.xlabel(x_Label)
     plt.ylabel(y_Label)
