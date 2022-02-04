@@ -35,6 +35,8 @@ legend = True # make False if you don't want a legend to show up
 savename = 'sample save name' # how to name file that will be saved
 skiprows = 0
 delimiter = ','
+lower_limit = 3000
+upper_limit = 4000
 """
 CHANGE STUFF ABOVE
 """
@@ -51,6 +53,7 @@ def main(folder):
 
     for j, f in enumerate(files):
         data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
+        data = data[np.logical_and(data[:, 0] >= lower_limit, data[:, 0] < upper_limit)]
         cols = np.shape(data)[1]
 
         for i in range(1, cols):
