@@ -17,7 +17,7 @@ this code will assume your data is a .txt, .dat, or .csv file with the x-axis in
 """
 CHANGE STUFF BELOW
 """
-FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare light on off' 
+FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double' 
 # legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
 legend_names = ['line 1'] # add as many legend names as you want to be plotted on same x axis
 # colors = ['red','black'] # as many color names as legend names
@@ -35,8 +35,8 @@ legend = True # make False if you don't want a legend to show up
 savename = 'sample save name' # how to name file that will be saved
 skiprows = 0
 delimiter = ','
-lower_limit = 3000 # mT
-upper_limit = 4000 # mT
+lower_limit = 0 # mT
+upper_limit = 50 # mT
 """
 CHANGE STUFF ABOVE
 """
@@ -62,6 +62,8 @@ def main(folder):
             except IndexError:
                 plt.plot(data[:, 0], data[:, i], lw=lw, label='no label')
             idx += 1
+
+        print(f"Plot number {j + 1} is {f.stem}")
 
     plt.xlabel(x_Label)
     plt.ylabel(y_Label)
