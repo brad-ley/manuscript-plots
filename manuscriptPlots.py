@@ -35,8 +35,8 @@ legend = True # make False if you don't want a legend to show up
 savename = 'sample save name' # how to name file that will be saved
 skiprows = 0
 delimiter = ','
-lower_limit = 3000
-upper_limit = 4000
+lower_limit = 3000 # mT
+upper_limit = 4000 # mT
 """
 CHANGE STUFF ABOVE
 """
