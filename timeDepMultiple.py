@@ -11,7 +11,6 @@ import PIL
 
 from scipy.optimize import curve_fit
 from scipy.interpolate import interp1d
-from readDataFile import read
 
 plt.style.use(['science'])
 
