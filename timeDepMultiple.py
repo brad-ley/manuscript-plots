@@ -46,6 +46,7 @@ def show(folder):
     smoothlen = 2000
     for i, f in enumerate(files):
         data = np.loadtxt(f, delimiter=delimiter, skiprows=skiprows)
+        data = data[numpy.logical_not(numpy.isnan(data[:, 1]))]
         expts = np.empty((smoothlen, int(np.round(data[-1, 0] / total_experiment_time))))
         loops = 0
         while loops < data[-1, 0] // total_experiment_time:
