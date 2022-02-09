@@ -20,16 +20,16 @@ plt.rcParams['font.family'] = 'sans-serif'
 """
 CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
-FOLDER = '/Users/Brad/Downloads/transient 537 406_3470 G.asc'
-turn_on = 35
-turn_off = 75
-total_experiment_time = 800 # only needs to be specific for averaging
-colors = [['black', 'red'], ['slategray', 'orange']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
-styles = [['-', '--'], ['-', '-.']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
+FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double'
+turn_on = 0
+turn_off = 5
+total_experiment_time = 180 # only needs to be specific for averaging
+colors = [['slategray', 'orange'], ['black', 'red']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
+styles = [['-', '-.'], ['-', '--']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 savename = 'compared'
 source = 'Light' # use 'Light' in Shiny's lab and 'Laser' in Brad's
-delimiter = '\t'
-skiprows = 4
+delimiter = ', '
+skiprows = 0
 """
 CHANGE STUFF ABOVE
 """
@@ -47,6 +47,8 @@ def show(folder):
     fig, ax = plt.subplots()
 
     smoothlen = 2000
+    scale = 0
+    files.sort()
     for i, f in enumerate(files):
         data = np.loadtxt(f, delimiter=delimiter, skiprows=skiprows)
         data = data[np.logical_not(np.isnan(data[:, 1]))]
@@ -68,6 +70,7 @@ def show(folder):
             expts[:,loops] = fx(smootht)
             loops += 1
         dat = np.mean(expts, axis=1)
+        dat -= np.mean(dat[-len(dat)//100:])
         popt, pcov = curve_fit(exp, plott[plott > turn_off], dat[plott > turn_off], maxfev=100000000, p0=p0)
         perr = np.sqrt(np.diag(pcov))
         sd2 = 2*perr[2]
@@ -75,15 +78,18 @@ def show(folder):
             sd2 = 0
         ex = exp(plott[plott > turn_off],*popt) 
         lw = 1.25
+
+        if popt[1] > scale:
+            scale = popt[1]
         try:
-            ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/popt[0], label=f.stem.replace("_"," "),
+            ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/scale, label=f.stem.replace("_"," "),
                     lw=lw, color=colors[i][0], linestyle=styles[i][0])
-            ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/popt[0] ,
+            ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/scale,
                     label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=lw, color=colors[i][1], linestyle=styles[i][1])
         except IndexError:
-            ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/popt[0], label=f.stem.replace("_"," "),
+            ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/scale, label=f.stem.replace("_"," "),
                     lw=lw)
-            ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/popt[0],
+            ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/scale,
                     label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=lw)
 
     plt.axvspan(turn_on, turn_off, color='#00A7CA', label=f"{source} on")
