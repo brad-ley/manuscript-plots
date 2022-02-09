@@ -75,7 +75,7 @@ def show(folder):
             popt, pcov = curve_fit(exp, plott[plott > turn_off], dat[plott > turn_off], maxfev=100000000, p0=p0)
             perr = np.sqrt(np.diag(pcov))
             sd2 = 2*perr[2]
-            if sd2 == np.inf:
+            if sd2 == np.inf or sd2 == np.nan:
                 sd2 = 0
             ex = exp(plott[plott > turn_off],*popt) 
             lw = 1.25
