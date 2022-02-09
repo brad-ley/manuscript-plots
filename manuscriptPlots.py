@@ -55,48 +55,44 @@ def main(folder):
     files = [ii for ii in P(folder).iterdir() if ii.suffix in data_suffixes]
     idx = 0
     
-    try:
-        for j, f in enumerate(files):
-            data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
-            data = data[np.logical_and(data[:, 0] >= lower_limit, data[:, 0] < upper_limit)]
-            cols = np.shape(data)[1]
+    for j, f in enumerate(files):
+        data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
+        data = data[np.logical_and(data[:, 0] >= lower_limit, data[:, 0] < upper_limit)]
+        cols = np.shape(data)[1]
 
 
+        try:
+            print(f"Plot number {j + 1} is {f.stem}, label={legend_names[idx]}, color={colors[idx]}, style={styles[idx]}")
+        except:
+            print(f"Plot number {j + 1} is {f.stem}, styles may be undefined")
+
+        for i in range(1, cols):
             try:
-                print(f"Plot number {j + 1} is {f.stem}, label={legend_names[idx]}, color={colors[idx]}, style={styles[idx]}")
-            except:
-                print(f"Plot number {j + 1} is {f.stem}, styles may be undefined")
+                plt.plot(data[:, 0], data[:, i], label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
+            except IndexError:
+                plt.plot(data[:, 0], data[:, i], lw=lw, label='no label')
+            idx += 1
 
-            for i in range(1, cols):
-                try:
-                    plt.plot(data[:, 0], data[:, i], label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
-                except IndexError:
-                    plt.plot(data[:, 0], data[:, i], lw=lw, label='no label')
-                idx += 1
+    plt.xlabel(x_Label)
+    plt.ylabel(y_Label)
 
-        plt.xlabel(x_Label)
-        plt.ylabel(y_Label)
+    if not x_ticks:
+        ax.set_xticks([])
 
-        if not x_ticks:
-            ax.set_xticks([])
+    if not x_tickLabels:
+        ax.set_xticklabels([])
 
-        if not x_tickLabels:
-            ax.set_xticklabels([])
+    if not y_ticks:
+        ax.set_yticks([])
 
-        if not y_ticks:
-            ax.set_yticks([])
+    if not y_tickLabels:
+        ax.set_yticklabels([])
 
-        if not y_tickLabels:
-            ax.set_yticklabels([])
+    if legend:
+        plt.legend()
 
-        if legend:
-            plt.legend()
-
-        plt.savefig(P(FOLDER).joinpath(f"{savename}.tif"),dpi=300)
-        plt.savefig(P(FOLDER).joinpath(f"{savename}.png"),dpi=300)
-
-    except ValueError:
-        print("You did not set the correct delimiter or skiprows.")
+    plt.savefig(P(FOLDER).joinpath(f"{savename}.tif"),dpi=300)
+    plt.savefig(P(FOLDER).joinpath(f"{savename}.png"),dpi=300)
 
 
 if __name__ == "__main__":
