@@ -20,9 +20,9 @@ plt.rcParams['font.family'] = 'sans-serif'
 """
 CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
-FOLDER = '/Users/Brad/Downloads/test'
-turn_on = 35
-turn_off = 75
+FOLDER = '/Users/Brad/Downloads/test/t'
+turn_on = 55
+turn_off = 90
 total_experiment_time = 800 # only needs to be specific for averaging
 colors = [['slategray', 'orange'], ['black', 'red']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 styles = [['-', '-.'], ['-', '--']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
@@ -57,7 +57,7 @@ def show(folder):
         """
         MIGHT NEED TO CHANGE
         """
-        p0 = [0, -60, 80]
+        p0 = [0, 0, 80]
         """
         MIGHT NEED TO CHANGE
         """
@@ -71,26 +71,31 @@ def show(folder):
             loops += 1
         dat = np.mean(expts, axis=1)
         dat -= np.mean(dat[-len(dat)//100:])
-        popt, pcov = curve_fit(exp, plott[plott > turn_off], dat[plott > turn_off], maxfev=100000000, p0=p0)
+        p0[1] = dat[np.argmax(np.abs(dat))]
+        popt, pcov = curve_fit(exp, plott[plott > turn_off] - turn_off, dat[plott > turn_off], maxfev=100000000, p0=p0)
         perr = np.sqrt(np.diag(pcov))
         sd2 = 2*perr[2]
-        if sd2 == np.inf or sd2 == np.nan:
-            sd2 = 0
-        ex = exp(plott[plott > turn_off],*popt) 
-        lw = 1.25
-
-        if np.abs(popt[1]) > scale:
-            scale = popt[1]
         try:
-            ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/scale, label=f.stem.replace("_"," "),
-                    lw=lw, color=colors[i][0], linestyle=styles[i][0])
-            ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/scale,
-                    label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=lw, color=colors[i][1], linestyle=styles[i][1])
-        except IndexError:
-            ax.plot(plott, (dat - np.mean(dat[-len(dat)//100:]))/scale, label=f.stem.replace("_"," "),
-                    lw=lw)
-            ax.plot(plott[plott > turn_off], (ex - np.mean(ex[-len(ex)//100:]))/scale,
-                    label=rf"$\tau={popt[2]:.1f}\pm{sd2:.1f}$ s", lw=lw)
+            if sd2 == np.inf or sd2 == np.nan:
+                sd2 = 0
+            ex = exp(plott[plott > turn_off] - turn_off,*popt) 
+            lw = 1.25
+            
+            if np.abs(popt[1]) > scale:
+                scale = popt[1]
+
+            try:
+                ax.plot(plott, dat/scale, label=f.stem.replace("_"," "),
+                        lw=lw, color=colors[i][0], linestyle=styles[i][0])
+                ax.plot(plott[plott > turn_off], ex/scale,
+                        label=rf"$\tau={popt[2]:.1f}\pm$" + f"{sd2:.1f} s", lw=lw, color=colors[i][1], linestyle=styles[i][1])
+            except IndexError:
+                ax.plot(plott, dat/scale, label=f.stem.replace("_"," "),
+                        lw=lw)
+                ax.plot(plott[plott > turn_off], ex/scale,
+                        label=rf"$\tau={popt[2]:.1f}\pm$" + f"{sd2:.1f} s", lw=lw)
+        except RuntimeError:
+            print(f"{f} file did not work.")
 
     plt.axvspan(turn_on, turn_off, color='#00A7CA', label=f"{source} on")
 
