@@ -21,12 +21,11 @@ this code will assume your data is a .txt, .dat, or .csv file with the x-axis in
 """
 CHANGE STUFF BELOW
 """
-FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double' 
-# legend_names = ['line 1', 'line 2'] # add as many legend names as you want to be plotted on same x axis
+FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare light on off' 
+MUTANT = ''
+FIELDS = [8.623, 8.625, 8.627, 8.628] # leave this list empty if you don't want field markers
 legend_names = ['line 1'] # add as many legend names as you want to be plotted on same x axis
-# colors = ['red','black'] # as many color names as legend names
 colors = ['red'] # as many color names as legend names
-# styles = [':', "--"] # same number here
 # for light on I use color '#00A7CA' and style '--'
 styles = [':'] # same number here
 x_Label = 'sample x label' # x axis label
@@ -60,7 +59,6 @@ def main(folder):
         data = data[np.logical_and(data[:, 0] >= lower_limit, data[:, 0] < upper_limit)]
         cols = np.shape(data)[1]
 
-
         try:
             print(f"Plot number {j + 1} is {f.stem}, label={legend_names[idx]}, color={colors[idx]}, style={styles[idx]}")
         except:
@@ -68,13 +66,33 @@ def main(folder):
 
         for i in range(1, cols):
             try:
-                plt.plot(data[:, 0], data[:, i], label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
+                ax.plot(data[:, 0], data[:, i], label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
             except IndexError:
-                plt.plot(data[:, 0], data[:, i], lw=lw, label='no label')
+                ax.plot(data[:, 0], data[:, i], lw=lw, label='no label')
             idx += 1
 
-    plt.xlabel(x_Label)
-    plt.ylabel(y_Label)
+    if FIELDS:
+        alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        alphas = np.linspace(0.25,0.75,len(FIELDS))
+        FIELDS.sort()
+        ticks = ax.get_ylim()
+        n = 1.175
+        fact = 0.99
+        if np.min(ticks) < 0:
+            ax.set_ylim(bottom=np.min(ticks)*n)
+        else:
+            ax.set_ylim(bottom=np.min(ticks)/n)
+            fact = 1/fact
+        t = ax.get_ylim()
+        for i, f in enumerate(FIELDS):
+            ax.axvline(x=f, c='dimgray',
+                       alpha=alphas[i], lw=lw) # , label=f'$B_0^{{({alphabet[i]})}}$')
+            ax.text(f, fact*np.min(t), f'$B_0^{{({alphabet[i]})}}$', horizontalalignment='center', verticalalignment='bottom')        
+
+    ax.text(0.45, 0.51, f'$T=294$ K\n{MUTANT}',
+            horizontalalignment='left', verticalalignment='center', transform=ax.transAxes)
+    ax.set_xlabel(x_Label)
+    ax.set_ylabel(y_Label)
 
     if not x_ticks:
         ax.set_xticks([])
@@ -89,7 +107,7 @@ def main(folder):
         ax.set_yticklabels([])
 
     if legend:
-        plt.legend()
+        ax.legend()
 
     plt.savefig(P(FOLDER).joinpath(f"{savename}.tif"),dpi=300)
     plt.savefig(P(FOLDER).joinpath(f"{savename}.png"),dpi=300)
