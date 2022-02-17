@@ -34,7 +34,7 @@ y_Label = 'sample y label' # y axis label
 x_tickLabels = True # set to false to remove x axis tick labels
 x_ticks = True # make False to get rid of x axis tick labels (good for arbitrary unit data)
 y_tickLabels = True # set to false to remove y axis tick labels
-y_ticks = True # make False to get rid of y axis tick labels (good for arbitrary unit data)
+y_ticks = False # False will leave ticks but they won't be manual, they will be [-1, 0, 1]
 legend = True # make False if you don't want a legend to show up
 savename = 'sample save name' # how to name file that will be saved
 skiprows = 0
@@ -54,6 +54,16 @@ def main(folder):
     data_suffixes = ['.txt', '.dat', '.asc', '.csv']
     files = [ii for ii in P(folder).iterdir() if ii.suffix in data_suffixes]
     idx = 0
+
+    if not y_ticks:
+        scale = 0
+        for j, f in enumerate(files):
+            data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
+            data = data[np.logical_and(data[:, 0] >= lower_limit, data[:, 0] < upper_limit)]
+            if np.max(np.abs(data[:, 1])) > scale:
+                scale = np.max(np.abs(data[:, 1]))
+    else:
+        scale = 1
     
     for j, f in enumerate(files):
         data = np.loadtxt(f, skiprows=skiprows, delimiter=delimiter)
@@ -67,9 +77,9 @@ def main(folder):
 
         for i in range(1, cols):
             try:
-                ax.plot(data[:, 0], data[:, i], label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
+                ax.plot(data[:, 0], data[:, i]/scale, label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
             except IndexError:
-                ax.plot(data[:, 0], data[:, i], lw=lw, label='no label')
+                ax.plot(data[:, 0], data[:, i]/scale, lw=lw, label='no label')
             idx += 1
 
     if FIELDS:
@@ -102,7 +112,7 @@ def main(folder):
         ax.set_xticklabels([])
 
     if not y_ticks:
-        ax.set_yticks([])
+        ax.set_yticks([-1, 0, 1])
 
     if not y_tickLabels:
         ax.set_yticklabels([])
