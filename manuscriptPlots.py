@@ -23,6 +23,7 @@ CHANGE STUFF BELOW
 """
 FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare light on off' 
 MUTANT = ''
+TEMP = 287
 FIELDS = [8.623, 8.625, 8.627, 8.628] # leave this list empty if you don't want field markers
 legend_names = ['line 1'] # add as many legend names as you want to be plotted on same x axis
 colors = ['red'] # as many color names as legend names
@@ -85,11 +86,11 @@ def main(folder):
             fact = 1/fact
         t = ax.get_ylim()
         for i, f in enumerate(FIELDS):
-            ax.axvline(x=f, c='dimgray',
-                       alpha=alphas[i], lw=lw) # , label=f'$B_0^{{({alphabet[i]})}}$')
+            ax.axvline(x=f, c='gray',
+                       alpha=0.5, lw=lw) # , label=f'$B_0^{{({alphabet[i]})}}$')
             ax.text(f, fact*np.min(t), f'$B_0^{{({alphabet[i]})}}$', horizontalalignment='center', verticalalignment='bottom')        
 
-    ax.text(0.45, 0.51, f'$T=294$ K\n{MUTANT}',
+    ax.text(0.68, 0.68, f'$T={TEMP}$ K\n{MUTANT}',
             horizontalalignment='left', verticalalignment='center', transform=ax.transAxes)
     ax.set_xlabel(x_Label)
     ax.set_ylabel(y_Label)

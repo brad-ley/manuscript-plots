@@ -20,16 +20,17 @@ plt.rcParams['font.family'] = 'sans-serif'
 """
 CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
-FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double'
-MUTANT = 'T406C' # put the mutant here, it will be placed on the figure
-turn_on = 0
-turn_off = 5
-total_experiment_time = 180 # only needs to be specific for averaging
+FOLDER = '/Users/Brad/Downloads/test'
+MUTANT = 'DL T406C-E537C' # put the mutant here, it will be placed on the figure
+TEMP = 294 # put as number
+turn_on = -40
+turn_off = 0
+total_experiment_time = 614 # only needs to be specific for averaging
 colors = [['purple', 'red'], ['black', 'red'], ['red', 'red']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 styles = [[':', '-.'], ['-.', '-.'], ['-','-.']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 savename = 'compared'
 source = 'Light' # use 'Light' in Shiny's lab and 'Laser' in Brad's
-delimiter = ', '
+delimiter = ','
 skiprows = 0
 """
 CHANGE STUFF ABOVE
@@ -116,7 +117,7 @@ def show(folder):
 
     plt.axvspan(turn_on, turn_off, color='#00A7CA', label=f"{source} on")
 
-    ax.text(0.45, 0.51, f'$T=294$ K\n{MUTANT}',
+    ax.text(0.45, 0.51, f'$T={TEMP}$ K\n{MUTANT}',
             horizontalalignment='left', verticalalignment='center', transform=ax.transAxes)
     # handles, labels = plt.gca().get_legend_handles_labels()
     # labels.insert(0, labels.pop())
