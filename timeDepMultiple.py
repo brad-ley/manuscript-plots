@@ -26,12 +26,14 @@ TEMP = 294 # put as number
 turn_on = -40
 turn_off = 0
 total_experiment_time = 614 # only needs to be specific for averaging
-colors = [['purple', 'red'], ['black', 'red'], ['red', 'red']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
-styles = [[':', '-.'], ['-.', '-.'], ['-','-.']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
+colors = [['black', 'red'], ['black', 'red'], ['red', 'red']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
+styles = [['-', ':'], ['-.', '-.'], ['-','-.']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 savename = 'compared'
 source = 'Light' # use 'Light' in Shiny's lab and 'Laser' in Brad's
 delimiter = ','
 skiprows = 0
+recovery = True # make True for UV-vis plots
+show_fit = True
 """
 CHANGE STUFF ABOVE
 """
@@ -96,6 +98,7 @@ def show(folder):
                 lines[f.stem + ' data'] = dat 
                 lines[f.stem + ' tau'] = popt[2]
                 lines[f.stem + ' 95'] = sd2
+                lines[f.stem + ' fit'] = ex
                 # ax.plot(plott, dat/scale, label=f.stem.replace("_"," "),
                 #         lw=lw, color=colors[i][0], linestyle=styles[i][0])
                 # ax.plot(plott[plott > turn_off], ex/scale,
@@ -112,7 +115,15 @@ def show(folder):
     
     outstr = ""
     for i, f in enumerate(files):
-        ax.plot(plott, lines[f.stem + ' data']/scale, label=f.stem.replace("_", " "), lw=lw, color=colors[i][0], linestyle=styles[i][0])
+        if recovery:
+            d = 1 - lines[f.stem + ' data']/scale
+            e = 1 - lines[f.stem + ' fit']/scale
+        else:
+            d = lines[f.stem + ' data']/scale
+            e = lines[f.stem + ' fit']/scale
+        ax.plot(plott, d, label=f.stem.replace("_", " "), lw=lw, color=colors[i][0], linestyle=styles[i][0])
+        if show_fit:
+            ax.plot(plott[plott > turn_off], e, lw=lw, color=colors[i][1], linestyle=styles[i][1])
         outstr += f"{f.name} fit is {lines[f.stem + ' tau']:.3f} plus/minus {lines[f.stem + ' 95']:.3f} s\n"
 
     plt.axvspan(turn_on, turn_off, color='#00A7CA', label=f"{source} on")
