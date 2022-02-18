@@ -137,6 +137,7 @@ def show(folder):
     # handles.insert(0, handles.pop())
     # plt.legend(handles, labels)
     plt.legend()
+    # ax.set_yticks([])
     ax.set_ylabel('cwEPR signal at $B_0$ (arb. u)')
     ax.set_xlabel('Time (s)')
     plt.savefig(P(folder).joinpath(f'{savename}.tif'),dpi=300)
