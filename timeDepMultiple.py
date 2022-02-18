@@ -94,22 +94,17 @@ def show(folder):
             if np.abs(popt[1]) > scale:
                 scale = popt[1]
 
-            try:
-                lines[f.stem + ' data'] = dat 
-                lines[f.stem + ' tau'] = popt[2]
-                lines[f.stem + ' 95'] = sd2
-                lines[f.stem + ' fit'] = ex
-                # ax.plot(plott, dat/scale, label=f.stem.replace("_"," "),
-                #         lw=lw, color=colors[i][0], linestyle=styles[i][0])
-                # ax.plot(plott[plott > turn_off], ex/scale,
-                #         label=rf"$\tau={popt[2]:.1f}\pm$" + f"{sd2:.1f} s", lw=lw, color=colors[i][1], linestyle=styles[i][1])
-                # ax.plot(plott[plott > turn_off], ex/scale,
-                #         lw=lw, color=colors[i][1], linestyle=styles[i][1])
-            except IndexError:
-                ax.plot(plott, dat/scale, label=f.stem.replace("_"," "),
-                        lw=lw)
-                ax.plot(plott[plott > turn_off], ex/scale,
-                        label=rf"$\tau={popt[2]:.1f}\pm$" + f"{sd2:.1f} s", lw=lw)
+            # try:
+            lines[f.stem + ' data'] = dat 
+            lines[f.stem + ' tau'] = popt[2]
+            lines[f.stem + ' 95'] = sd2
+            lines[f.stem + ' fit'] = ex
+
+            # except IndexError:
+            #     ax.plot(plott, dat/scale, label=f.stem.replace("_"," "),
+            #             lw=lw)
+            #     ax.plot(plott[plott > turn_off], ex/scale,
+            #             label=rf"$\tau={popt[2]:.1f}\pm$" + f"{sd2:.1f} s", lw=lw)
         except RuntimeError:
             print(f"{f} file did not work.")
     
