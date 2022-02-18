@@ -20,19 +20,19 @@ plt.rcParams['font.family'] = 'sans-serif'
 """
 CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
-FOLDER = '/Users/Brad/Downloads/test'
-MUTANT = 'DL T406C-E537C' # put the mutant here, it will be placed on the figure
+FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double'
+MUTANT = '' # put the mutant here, it will be placed on the figure
 TEMP = 294 # put as number
-turn_on = -40
-turn_off = 0
-total_experiment_time = 614 # only needs to be specific for averaging
-colors = [['black', 'red'], ['black', 'red'], ['red', 'red']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
-styles = [['-', ':'], ['-.', '-.'], ['-','-.']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
+turn_on = 0
+turn_off = 5
+total_experiment_time = 180 # only needs to be specific for averaging
+colors = [['black', 'red'], ['green', 'red'], ['blue', 'red']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
+styles = [['-', '--'], ['-', '--'], ['-','--']] # make one entry for each line and it's fit [[line, fit], [line, fit]]
 savename = 'compared'
-source = 'Light' # use 'Light' in Shiny's lab and 'Laser' in Brad's
-delimiter = ','
+source = 'Laser' # use 'Light' in Shiny's lab and 'Laser' in Brad's
+delimiter = ', '
 skiprows = 0
-recovery = True # make True for UV-vis plots
+recovery = False # make True for UV-vis plots
 show_fit = True
 """
 CHANGE STUFF ABOVE
@@ -53,8 +53,7 @@ def show(folder):
     smoothlen = 2000
     scale = 0
     files.sort()
-    files.insert(0, files.pop())
-    files.insert(1, files.pop())
+    files.insert(2, files.pop(1))
     lines = {}
 
     for i, f in enumerate(files):
@@ -127,9 +126,13 @@ def show(folder):
         outstr += f"{f.name} fit is {lines[f.stem + ' tau']:.3f} plus/minus {lines[f.stem + ' 95']:.3f} s\n"
 
     plt.axvspan(turn_on, turn_off, color='#00A7CA', label=f"{source} on")
-
-    ax.text(0.45, 0.51, f'$T={TEMP}$ K\n{MUTANT}',
-            horizontalalignment='left', verticalalignment='center', transform=ax.transAxes)
+    
+    if MUTANT:
+        ax.text(0.45, 0.51, f'$T={TEMP}$ K\n{MUTANT}',
+                horizontalalignment='left', verticalalignment='center', transform=ax.transAxes)
+    else:
+        ax.text(0.45, 0.51, f'$T={TEMP}$ K',
+                horizontalalignment='left', verticalalignment='center', transform=ax.transAxes)
     # handles, labels = plt.gca().get_legend_handles_labels()
     # labels.insert(0, labels.pop())
     # handles.insert(0, handles.pop())

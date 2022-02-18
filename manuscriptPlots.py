@@ -98,7 +98,12 @@ def main(folder):
         for i, f in enumerate(FIELDS):
             ax.axvline(x=f, c='gray',
                        alpha=0.5, lw=lw) # , label=f'$B_0^{{({alphabet[i]})}}$')
-            ax.text(f, fact*np.min(t), f'$B_0^{{({alphabet[i]})}}$', horizontalalignment='center', verticalalignment='bottom')        
+            if alphabet[i] == 'a':
+                ax.text(f, fact*np.min(t), f'$B_0^{{({alphabet[i]})}}$', horizontalalignment='right', verticalalignment='bottom')        
+            elif alphabet[i] == 'b':
+                ax.text(f, fact*np.min(t), f'$B_0^{{({alphabet[i]})}}$', horizontalalignment='left', verticalalignment='bottom')        
+            else:
+                ax.text(f, fact*np.min(t), f'$B_0^{{({alphabet[i]})}}$', horizontalalignment='center', verticalalignment='bottom')        
 
     ax.text(0.68, 0.68, f'$T={TEMP}$ K\n{MUTANT}',
             horizontalalignment='left', verticalalignment='center', transform=ax.transAxes)
