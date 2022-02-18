@@ -22,6 +22,7 @@ CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
 FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double'
 MUTANT = '' # put the mutant here, it will be placed on the figure
+LEGEND_NAME = '$B_0^{(a)}$' # legend name here if you want it to be fancy
 TEMP = 294 # put as number
 turn_on = 0
 turn_off = 5
@@ -120,7 +121,10 @@ def show(folder):
         else:
             d = lines[f.stem + ' data']/scale
             e = lines[f.stem + ' fit']/scale
-        ax.plot(plott, d, label=f.stem.replace("_", " "), lw=lw, color=colors[i][0], linestyle=styles[i][0])
+        if not LEGEND_NAME:
+            ax.plot(plott, d, label=f.stem.replace("_", " "), lw=lw, color=colors[i][0], linestyle=styles[i][0])
+        else:
+            ax.plot(plott, d, label=LEGEND_NAME, lw=lw, color=colors[i][0], linestyle=styles[i][0])
         if show_fit:
             ax.plot(plott[plott > turn_off], e, lw=lw, color=colors[i][1], linestyle=styles[i][1])
         outstr += f"{f.name} fit is {lines[f.stem + ' tau']:.3f} plus/minus {lines[f.stem + ' 95']:.3f} s\n"
