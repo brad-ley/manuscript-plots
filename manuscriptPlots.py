@@ -41,6 +41,9 @@ skiprows = 0
 delimiter = ','
 lower_limit = 0 # mT
 upper_limit = 50 # mT
+Q_BAND = True
+Qx = 1 # column for x axis data (python starts at 0)
+Qx = 2 # column for y axis data (python starts at 0)
 """
 CHANGE STUFF ABOVE
 """
@@ -75,12 +78,19 @@ def main(folder):
         except:
             print(f"Plot number {j + 1} is {f.stem}, styles may be undefined")
 
-        for i in range(1, cols):
+        if not Q_BAND:
+            for i in range(1, cols):
+                try:
+                    ax.plot(data[:, 0], data[:, i]/scale, label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
+                except IndexError:
+                    ax.plot(data[:, 0], data[:, i]/scale, lw=lw, label='no label')
+                idx += 1
+        else:
             try:
-                ax.plot(data[:, 0], data[:, i]/scale, label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
+                ax.plot(data[:, Qx], data[:, Qy]/scale, label=legend_names[idx], color=colors[idx], linestyle=styles[idx], lw=lw)
             except IndexError:
-                ax.plot(data[:, 0], data[:, i]/scale, lw=lw, label='no label')
-            idx += 1
+                ax.plot(data[:, Qx], data[:, Qy]/scale, lw=lw, label='no label')
+
 
     if FIELDS:
         alphabet = 'abcdefghijklmnopqrstuvwxyz'

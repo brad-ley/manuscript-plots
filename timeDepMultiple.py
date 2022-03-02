@@ -22,7 +22,7 @@ CHANGE STUFF BELOW (copy full path to folder by holding 'option' on Mac)
 """
 FOLDER = '/Volumes/GoogleDrive/My Drive/Research/Data/2022/1/compare single double'
 MUTANT = '' # put the mutant here, it will be placed on the figure
-LEGEND_NAMES = ['$B_0^{(a)}$', 'test', 'testj2'] # legend name here if you want it to be fancy
+LEGEND_NAMES = [] # legend name here if you want it to be fancy
 TEMP = 294 # put as number
 turn_on = 0
 turn_off = 5
