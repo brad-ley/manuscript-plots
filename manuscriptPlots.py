@@ -43,7 +43,7 @@ lower_limit = 0 # mT
 upper_limit = 50 # mT
 Q_BAND = True
 Qx = 1 # column for x axis data (python starts at 0)
-Qx = 2 # column for y axis data (python starts at 0)
+Qy = 2 # column for y axis data (python starts at 0)
 """
 CHANGE STUFF ABOVE
 """
