@@ -1,0 +1,1 @@
+Plots the normalized probability of each distance as well as an error band for their 95% (2*SD) confidence interval. Inset it time-dep signal after background correction.
