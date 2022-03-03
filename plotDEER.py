@@ -50,7 +50,7 @@ def plot(folder):
     # axin.legend()
 
     fig.tight_layout()
-    fig.savefig(exp.parent.joinpath(exp.stem.split('DEER')[0]+'figure.png'), dpi=300)
+    fig.savefig(exp.parent.joinpath('comparison_figure.png'), dpi=300)
 
     # plt.show()
 
