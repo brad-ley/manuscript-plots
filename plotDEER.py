@@ -31,14 +31,16 @@ def plot(folder):
         err_db = pd.read_csv(err, delimiter='\t')
         if 'light' in exp.stem:
             color = '#00A7CA'
-            label = 'Light on'
+            label = 'Lit'
+            style = '--'
         else:
             color = 'black'
-            label = 'Light off'
+            label = 'Dark'
+            style = '-'
         n = np.trapz(dist_db['Probability'])
-        ax.plot(0.1*dist_db['Distance(A)'], dist_db['Probability']/n, color=color, lw=lw, label=label)
+        ax.plot(0.1*dist_db['Distance(A)'], dist_db['Probability']/n, color=color, lw=lw, label=label, ls=style)
         ax.fill_between(0.1*err_db['Distance(A)'], y1=(dist_db['Probability']-2*err_db['Standard  Deviation'])/n, y2=(dist_db['Probability']+2*err_db['Standard  Deviation'])/n, color=color, interpolate=True, alpha=0.5)
-        axin.plot(exp_db['time (Βs)'], exp_db['Data'], color=color, lw=lw, label=label)
+        axin.plot(exp_db['time (Βs)'], exp_db['Data'], color=color, lw=lw, label=label, ls=style)
         # axin.plot(exp_db['time (Βs)'], exp_db['Fit'], color='#00A7CA', lw=lw, label='Fit', alpha=0.75)
 
     ax.set_ylabel('$P(r_{ee})$')

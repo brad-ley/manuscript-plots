@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 import numpy as np
 
+plt.style.use('science')
 rc('text.latex', preamble=r'\usepackage{cmbright}')
 plt.rcParams['font.family'] = 'sans-serif'
-plt.style.use('science')
 
 """
 filename need to be full path to folder:
@@ -41,7 +41,7 @@ skiprows = 0
 delimiter = ','
 lower_limit = 0 # mT
 upper_limit = 50 # mT
-Q_BAND = True
+Q_BAND = False
 Qx = 1 # column for x axis data (python starts at 0)
 Qy = 2 # column for y axis data (python starts at 0)
 """
